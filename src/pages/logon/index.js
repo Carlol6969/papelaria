@@ -2,6 +2,7 @@ import React from "react";
 import '../../global.css'
 import logo from '../../assets/img/logo.jpg'
 import {useNavigate} from 'react-router-dom'
+import { useState } from "react";
 
 
 export default function Logon(){
@@ -9,8 +10,9 @@ export default function Logon(){
     const logar=(e)=>{
         e.preventDefault()
         navigate("/dashboard")
-
     }
+    const [email,setEmail] = useState()
+    const [senha,setSenha] = useState()
  return(
 
     <div className="logon-container">
@@ -20,11 +22,12 @@ export default function Logon(){
                 <input 
                  placeholder="E-mail" 
                  type="email"
-                 
+                 value={email} onChange={(e)=>setEmail(e.target.value)}
                 />
                 <input 
                  placeholder="Senha" 
                  type="password"
+                 value={senha} onChange={(e)=>setSenha(e.target.value)}
                 />
                 <button className="button-logon" type="submit">
                     Entrar
