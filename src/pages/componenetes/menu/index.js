@@ -9,7 +9,7 @@ export default function menu(){
                     <FiHome className='icons-menu' size={15}/> Home
 
                 </Link>
-                <Link to="/listauser" className='link'>
+                <Link to="/listausuario" className='link'>
                     <FiUser className='icons-menu' size={15}/> Usuário
 
                 </Link>

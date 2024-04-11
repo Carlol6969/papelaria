@@ -2,7 +2,7 @@ import React from "react";
 import '../../global.css'
 import Head from "../componenetes/head";
 import Menu from "../componenetes/menu";
-export default function dashboard(){
+export default function listausuarios(){
     return(
         <div className="dashboard-container">
             <div className="menu">
@@ -10,7 +10,7 @@ export default function dashboard(){
 
             </div>
             <div className="main">
-                <Head title="Home"/>
+                <Head title="Usuários"/>
 
             </div>
 
