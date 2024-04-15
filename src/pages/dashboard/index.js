@@ -1,20 +1,20 @@
 import React from "react";
 import '../../global.css'
-import Head from "../componenetes/head";
-import Menu from "../componenetes/menu";
-export default function dashboard(){
+import Head from "../componentes/head"
+import Menu from "../componentes/menu"
+
+export default function Dashboard(){
     return(
-        <div className="dashboard-container">
-            <div className="menu">
-                <Menu/>
-
-            </div>
-            <div className="main">
-                <Head title="Home"/>
-
-            </div>
-
+ <div className="dashboard-container"> 
+        <div className="menu">
+         <Menu/>
         </div>
+        <div className="main">
+         <Head title="Home" />
+         
+        </div>
+
+ </div>
 
     )
 }

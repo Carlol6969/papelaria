@@ -7,7 +7,7 @@
 }
 body{
     font:400 14px 'Roboto', sans-serif;
-    background: #ffffff;
+    background: #f0f0f5;
     -webit-font-smoothing:antialiased;
     
 }
@@ -65,7 +65,7 @@ body{
         font-size: 14px;
         transition: filter 0.2s;
     }
-    .button-logon:hover{
+    .button_login:hover{
         filter:brightness(90%);
         cursor:pointer
     }
@@ -76,6 +76,7 @@ body{
     p{
         margin-top: 10px;
     }
+
     .menu{
         width: 20%;
         background-color: #ffff;
@@ -91,40 +92,48 @@ body{
         margin: 5px;
         padding: 15px;
     }
-    .dashboard-container{ 
-        display: flex;
-        flex-direction: row;
-
+    .dashboard-container{
+ display: flex;
+ flex-direction: row;
     }
+    form{
+        filter: drop-shadow(2px  7px 2px black);
+    }
+    section{
+        margin-top: 10%;
+    }
+    img{
+        border-radius: 9%;
+    }   
     .link{
         display: flex;
         width: 85%;
         border-radius: 5px;
-        border: #adae8e 1px solid;
-        justify-content: center;
-        color: rgb(98, 94, 89);
+        border: #a29d7f 1px solid;
+        color: #9c8680;
         padding: 10px;
         margin: auto;
-        margin-top: 15px;
+        margin-top: 5PX;
         
+        justify-content: center;
+    }
+    NAV{
+        height: 90VH;
     }
     .link:hover{
-        background-color: #adae8e;
+        background-color: #88a27f;
         color: white;
+    }
+    .icons-menu{
+        margin-right: 10px;
+    }
 
-    }
-    nav{
-        height: 90vh;
-    }
-    .icons-menu{ margin-right: 10px;
-
-    }
- .btn-save{
+    .btn-salvar{
         margin-top: 10px;
         margin-bottom: 10px;
         width: 100%;
         padding: 12px;
-        background-color: #028606;
+        background-color: green;
         border:0;
         border-radius: 5px;
         color:#FFF;
@@ -134,9 +143,38 @@ body{
         font-size: 14px;
         transition: filter 0.2s;
     }
-    .btn-save:hover{
+    .btn-salvar:hover{
         filter:brightness(90%);
         cursor:pointer
     }
-
+    .btn-novo{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 12px;
+        background-color: green;
+        border:0;
+        border-radius: 5px;
+        color:#FFF;
+        font-weight: 700;
+        text-align: center;
+        text-decoration:none;
+        font-size: 14px;
+        transition: filter 0.2s;
+        margin-right: 100%;
+    }
+    .btn-novo:hover{
+        filter:brightness(90%);
+        cursor:pointer  
+    }
+    table{
+        font:400 16px 'Roboto', sans-serif; 
+        margin: 0 auto;
     
+        
+    }
+    th, td {
+        border-bottom: 1px solid #96D4D4;
+        text-align: left;
+        padding: 5px;
+      }
