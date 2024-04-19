@@ -10,10 +10,22 @@ export default function Logon(){
 
    const navigate = useNavigate();
    const logar=(e)=>{
-        e.preventDefault()  //impede que a página se recarregue quando o botão for  clicado
-      //   alert("deu?")     //apresenta uma mensagem de teste, pode ser removida em produção
-        navigate('/dashboard')//redirecion a para a home após o login 
-        
+        e.preventDefault()
+        if(!email || !senha){ alert("Ta vazio buxa")
+
+        }
+        else{
+         const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
+         const usuariologado=banco.filter(linha=>{
+            return linha.email===email  && linha.senha==senha
+
+
+         })
+         if(usuariologado.length>0){
+        navigate('/dashboard')
+      }
+      else( alert("Credenciais nao correspondentes"))
+      }
    }
   
 
@@ -30,8 +42,8 @@ export default function Logon(){
         placeholder="Senha"
         type="password" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
         <button className="button-logon" type="submit">Entrar</button>
-        {email}
-        {senha}
+        
+        
         <hr></hr>
        </form>
    </section>
