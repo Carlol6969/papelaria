@@ -23,6 +23,7 @@ export default function Cadastrousuario(){
     localStorage.setItem("usuarios",JSON.stringify(banco));
     // window.location.reload();
     alert("deu certo!!!")
+  
     navigate("/listausuarios")
       }
 
@@ -33,7 +34,7 @@ export default function Cadastrousuario(){
                 <Menu/>
                </div>
                <div className="main">
-                <Head title="Cadastro de usuario"/>
+                <Head title="cadastro de usuario"/>
 
                 <form onSubmit={Salvardados}>
                     <input type="text" placeholder="Nome" value={nome} onChange={(e)=>setNome(e.target.value)}/>

@@ -5,6 +5,7 @@ import Dashboard from "./pages/dashboard";
 import Cadastrousuario from "./pages/cadastroUsuario";
 import Listausuarios from './pages/listaUsuarios';
 import Editarusuario from "./pages/editarUsuario";
+
 export default function Rotas(){
 return(
     <BrowserRouter>
