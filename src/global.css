@@ -94,7 +94,7 @@ body{
     }
     .dashboard-container{
  display: flex;
- flex-direction: row;
+ flex-direction: column;
     }
     form{
         filter: drop-shadow(2px  7px 2px black);
@@ -178,3 +178,25 @@ body{
         text-align: left;
         padding: 5px;
       }
+      .header{
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        background-color: #ffff;
+        margin: 5px;
+        border: 0.5px solid silver;
+        border-radius: 5px;}
+        .forehead{
+            padding-left: 80px;
+            width: 390px;
+            display: flex;
+            flex-direction: row;
+        }
+        .uphead{ width: 100%;
+            display: flex;
+
+        }
+        .paps{
+            margin-left: 600px;
+            padding-right: 500px;
+        }

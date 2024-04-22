@@ -4,6 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import '../../global.css'
 import Head from "../componentes/head"
 import Menu from "../componentes/menu"
+import Header from "../componentes/header"
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit,FiTrash } from "react-icons/fi";
 
@@ -57,11 +58,14 @@ export default function Listausuarios(){
 
         
  <div className="dashboard-container"> 
-        <div className="menu">
-         <Menu/>
-        </div>
-        <div className="main">
-         <Head title="Lista de usuarios" />
+         <div className="header">
+          <Header/>
+         </div>
+          <div className="menu">
+           <Menu/>
+          </div>
+          <div className="main">
+           <Head title="Lista de usuarios" />
          <div>
          <Link to="/cadastrousuario" className='btn-novo'>Novo</Link>
          </div>
