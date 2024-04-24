@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Menu from "../componentes/menu"
 import Head from  "../componentes/head"
+import Header from "../componentes/header"
 import '../../global.css'
 import {useNavigate, Link,useParams} from "react-router-dom"
 export default function Editarusuario(){
@@ -57,20 +58,23 @@ export default function Editarusuario(){
 
     return(
         <div className="dashboard-container"> 
-               <div className="menu">
-                <Menu/>
+        <div className="header">
+          <Header/>
+        </div>
+               <div className="uphead">
+                 <div className="menu">
+                  <Menu/>
+                 </div>
+                 <div className="main">
+                  <Head title="Editar usuario"/>
+                  <form onSubmit={Salvardados}>
+                      <input type="text" placeholder="Nome" value={nome} onChange={(e)=>setNome(e.target.value)}/>
+                      <input type="email" placeholder="E-mail" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                      <input type="password" placeholder="senha" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
+                      <button className="btn-salvar">salvar</button>
+                  </form>
+                 </div>
                </div>
-               <div className="main">
-                <Head title="editar usuario"/>
-
-                <form onSubmit={Salvardados}>
-                    <input type="text" placeholder="Nome" value={nome} onChange={(e)=>setNome(e.target.value)}/>
-                    <input type="email" placeholder="E-mail" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                    <input type="password" placeholder="senha" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
-                    <button className="btn-salvar">salvar</button>
-                </form>
-               </div>
-       
         </div>
        
            )

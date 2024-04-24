@@ -8,36 +8,36 @@ import Header from "../componentes/header"
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit,FiTrash } from "react-icons/fi";
 
-export default function Listausuarios(){
+export default function Listaprodutos(){
     const navigate =  useNavigate();
 
-    const[usuario, setUsuarios] = useState([]);
+    const[produtos, setProdutos] = useState([]);
     const [quantidade,setquantidade]= useState();
 
-    function mostrarusuarios(){
+    function mostrarprodutos(){
       
-        const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
+        const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
         setquantidade(banco.length)
-        setUsuarios (banco);
+        setProdutos (banco);
     }
-    function editarusuario(id, nome){
-         alert(`estou editando  o usuario id:${id} |-| do nome: ${nome}`);
-         navigate(`/editarusuario/${id}`)
+    function editarproduto(id, nome){
+         alert(`estou editando  o produto id:${id} |-| do nome: ${nome}`);
+         navigate(`/editarproduto/${id}`)
     }
     
-       const excluirusuario = (id, nome) => {
+       const excluirproduto = (id, nome) => {
             confirmAlert({
-              title: 'excluir usuario',
-              message: 'seu anta deseja realmente excluir este usuario?.',
+              title: 'ban em produto',
+              message: 'quer mesmo dar ban nesse produto?',
               buttons: [
                 {
-                  label: 'sim, claro que sim, ue',
+                  label: 'sim, muito cringe, da ban',
                   onClick: () => {
                     const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
                     const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
                     localStorage.setItem("usuarios", JSON.stringify(dadosvelhos));
-                    alert(`usuario ${nome} excluido com sucesso`);
-                    mostrarusuarios();
+                    alert(`produto ${nome} excluido com sucesso`);
+                    mostrarprodutos();
                     // if(nome === "gean"){
                     //   alert("opa não pode excluir meu brodi")
                       
@@ -45,7 +45,7 @@ export default function Listausuarios(){
                   }
                 },
                 {
-                  label: 'por que quer excluir então idiota!',
+                  label: 'nah, o cringe sou eu, produto based mgtow',
                   onClick: () => alert('Click No')
                 }
               ]
@@ -53,7 +53,7 @@ export default function Listausuarios(){
           };
         
     
-    useEffect(()=>{mostrarusuarios()},[])
+    useEffect(()=>{mostrarprodutos()},[])
     return( 
 
         
@@ -66,34 +66,38 @@ export default function Listausuarios(){
              <Menu/>
             </div>
             <div className="main">
-             <Head title="Lista de usuarios" />
+             <Head title="Lista de Produtos" />
                      <div>
-                     <Link to="/cadastrousuario" className='btn-novo'>Novo</Link>
+                     <Link to="/cadastroproduto" className='btn-novo'>Novo</Link>
                      </div>
           
         
          <table>
             <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
+            <th>Descrição</th>
+            <th>Valor unitário</th>
+            <th>Quantidade Min.</th>
+            <th>Quantidade Max.</th>
             <th></th>
             <th></th>
             </tr>
             
                 {
-                    usuario.map((linha) => {
+                    produtos.map((linha) => {
 
                      return(
                         <tr>
                         <td>{linha.id}</td>
-                        <td>{linha.nome}</td>
-                        <td>{linha.email}</td>
+                        <td>{linha.descricao}</td>
+                        <td>{linha.valorunit}</td>
+                        <td>{linha.quantmin}</td>
+                        <td>{linha.quantmax}</td>
                         <td>
-                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarusuario(linha.id,linha.nome)}}/>
+                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarproduto(linha.id,linha.descricao)}}/>
                             </td>
                         <td>
-                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirusuario(linha.id,linha.nome)}}/>
+                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirproduto(linha.id,linha.descricao)}}/>
                             </td>
                         </tr>
                      )
@@ -102,7 +106,7 @@ export default function Listausuarios(){
                     
                     
                 }
-                <th>total de usuarios: {quantidade}</th>
+                <th>total de produtos: {quantidade}</th>
             </table>
         </div>
         </div>

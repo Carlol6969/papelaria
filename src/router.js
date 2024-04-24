@@ -4,6 +4,7 @@ import Logon from "./pages/logon";
 import Dashboard from "./pages/dashboard";
 import Cadastrousuario from "./pages/cadastroUsuario";
 import Listausuarios from './pages/listaUsuarios';
+import Listaprodutos from "./pages/listaProdutos";
 import Editarusuario from "./pages/editarUsuario";
 
 export default function Rotas(){
@@ -14,6 +15,7 @@ return(
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/cadastrousuario" element={<Cadastrousuario/>}/>
         <Route path="/listausuarios" element={<Listausuarios/>}/>
+        <Route path="/listaprodutos" element={<Listaprodutos/>}/>
         <Route path="/editarusuario/:id" element={<Editarusuario/>}/>
        </Routes>
        

@@ -123,6 +123,7 @@ body{
     .link:hover{
         background-color: #88a27f;
         color: white;
+        cursor: pointer;
     }
     .icons-menu{
         margin-right: 10px;
@@ -200,3 +201,5 @@ body{
             margin-left: 600px;
             padding-right: 500px;
         }
+        .image{ width: 100px!important ;
+        height: 100px;}
