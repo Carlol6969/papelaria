@@ -33,15 +33,12 @@ export default function Listaprodutos(){
                 {
                   label: 'sim, muito cringe, da ban',
                   onClick: () => {
-                    const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
+                    const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
                     const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
-                    localStorage.setItem("usuarios", JSON.stringify(dadosvelhos));
+                    localStorage.setItem("produtos", JSON.stringify(dadosvelhos));
                     alert(`produto ${nome} excluido com sucesso`);
                     mostrarprodutos();
-                    // if(nome === "gean"){
-                    //   alert("opa não pode excluir meu brodi")
-                      
-                    // }
+                    
                   }
                 },
                 {
@@ -75,10 +72,11 @@ export default function Listaprodutos(){
          <table>
             <tr>
             <th>ID</th>
+            <th>Status</th>
             <th>Descrição</th>
             <th>Valor unitário</th>
-            <th>Quantidade Min.</th>
-            <th>Quantidade Max.</th>
+            <th>Estoque Min.</th>
+            <th>Estoque Max.</th>
             <th></th>
             <th></th>
             </tr>
@@ -89,10 +87,11 @@ export default function Listaprodutos(){
                      return(
                         <tr>
                         <td>{linha.id}</td>
+                        <td>{linha.status}</td>
                         <td>{linha.descricao}</td>
                         <td>{linha.valorunit}</td>
-                        <td>{linha.quantmin}</td>
-                        <td>{linha.quantmax}</td>
+                        <td>{linha.estoqmin}</td>
+                        <td>{linha.estoqmax}</td>
                         <td>
                             <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarproduto(linha.id,linha.descricao)}}/>
                             </td>
