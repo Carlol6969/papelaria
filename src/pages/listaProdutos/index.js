@@ -74,7 +74,6 @@ export default function Listaprodutos(){
             <th>ID</th>
             <th>Status</th>
             <th>Descrição</th>
-            <th>Valor unitário</th>
             <th>Estoque Min.</th>
             <th>Estoque Max.</th>
             <th></th>
@@ -89,7 +88,6 @@ export default function Listaprodutos(){
                         <td>{linha.id}</td>
                         <td>{linha.status}</td>
                         <td>{linha.descricao}</td>
-                        <td>{linha.valorunit}</td>
                         <td>{linha.estoqmin}</td>
                         <td>{linha.estoqmax}</td>
                         <td>

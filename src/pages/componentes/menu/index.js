@@ -9,7 +9,7 @@ export default function Menu(){
                <Link to="/dashboard" className='link'><FiHome className='icons-menu' size={24}/>Home</Link>
                <Link to="/listausuarios" className='link'><FiUser className='icons-menu' size={24}/>Usuário</Link>
                <Link to="/listaprodutos" className='link'><FiTag className='icons-menu' size={24}/>Produto</Link>
-               <Link to="/listaentrada" className='link'><FiShoppingCart className='icons-menu' size={24}/>Entrada</Link>
+               <Link to="/listaentradas" className='link'><FiShoppingCart className='icons-menu' size={24}/>Entrada</Link>
                <Link to="/listaestoque" className='link'><FiGrid className='icons-menu' size={24}/>Estoque</Link>
                <Link to="/listasaida" className  ='link'><FiTruck className='icons-menu' size={24}/>Saida</Link>
               

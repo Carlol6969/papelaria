@@ -1,59 +1,114 @@
-import { useState } from "react"
-import Menu from "../componentes/menu"
-import Head from  "../componentes/head"
-import Header from "../componentes/header"
+import React,{useState, useEffect} from "react";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import '../../global.css'
-import {useNavigate, Link} from "react-router-dom"
-export default function Cadastroproduto(){
-    const navigate = useNavigate();
-    const[descricao,setDescricao] = useState("")
-    const[status,setStatus] = useState("")
-    const[valorunit,setValorunit] = useState("")
-    const[estoqmin,setEstoqmin] = useState()
-    const[estoqmax,setEstoqmax] = useState()
-    // json
-  const produto={
-    id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
-     status,
-     descricao,
-     valorunit,
-     estoqmin,
-     estoqmax
-  };
-   const Salvardados =(e)=>{
-    e.preventDefault();
-    const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
-    banco.push(produto);
-    localStorage.setItem("produtos",JSON.stringify(banco));
-    alert("deu certo!!!")
-  
-    navigate("/listaprodutos")
-      }
+import Head from "../componentes/head"
+import Menu from "../componentes/menu"
+import Header from "../componentes/header"
+import { Link, useNavigate } from "react-router-dom";
+import { FiEdit,FiTrash } from "react-icons/fi";
 
+export default function Listaentradas(){
+    const navigate =  useNavigate();
 
-    return(
-        <div className="dashboard-container"> 
-              <div className="header">
-                <Header/>
-              </div>
-               <div className="uphead">
-                 <div className="menu">
-                  <Menu/>
-                 </div>
-                 <div className="main">
-                  <Head title="Cadastro de Entrada"/>
-                  <form onSubmit={Salvardados}>
-                      <input type="text" placeholder="Status" value={status} onChange={(e)=>setStatus(e.target.value)}/>
-                      <input type="text" placeholder="Descrição" value={descricao} onChange={(e)=>setDescricao(e.target.value)}/>
-                      <input type="text" placeholder="Valor Unitário" value={valorunit} onChange={(e)=>setValorunit(e.target.value)}/>
-                      <input type="number" placeholder="Estoque Mínimo" value={estoqmin} onChange={(e)=>setEstoqmin(e.target.value)}/>
-                      <input type="number" placeholder="Estoque Máximo" value={estoqmax} onChange={(e)=>setEstoqmax(e.target.value)}/>
-                      <button className="btn-salvar">salvar</button>
-                  </form>
-                 </div>
-               </div>
-       
+    const[entradas, setEntradas] = useState([]);
+    const [quantidade,setquantidade]= useState();
+
+    function mostrarentrada(){
+      
+        const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
+        setquantidade(banco.length)
+        setEntradas (banco);
+    }
+    function editarentrada(id, nome){
+         alert(`estou editando  a entrada id:${id} |-| do nome: ${nome}`);
+         navigate(`/editarentrada/${id}`)
+    }
+    
+       const excluirentrada = (id, nome) => {
+            confirmAlert({
+              title: 'ban em produto',
+              message: 'quer mesmo dar ban nessa entrada?',
+              buttons: [
+                {
+                  label: 'sim, muito cringe, da ban',
+                  onClick: () => {
+                    const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
+                    const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
+                    localStorage.setItem("entradas", JSON.stringify(dadosvelhos));
+                    alert(`entrada ${nome} excluido com sucesso`);
+                    mostrarentrada();
+                    
+                  }
+                },
+                {
+                  label: 'nah, o cringe sou eu, produto based mgtow',
+                  onClick: () => alert('Click No')
+                }
+              ]
+            });
+          };
+        
+    
+    useEffect(()=>{mostrarentrada()},[])
+    return( 
+
+        
+ <div className="dashboard-container"> 
+         <div className="header">
+          <Header/>
+         </div>
+          <div className="uphead">
+            <div className="menu">
+             <Menu/>
+            </div>
+            <div className="main">
+             <Head title="Lista de Entradas" />
+                     <div>
+                     <Link to="/cadastroentrada" className='btn-novo'>Novo</Link>
+                     </div>
+          
+        
+         <table>
+            <tr>
+            <th>ID</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Data Entrada</th>
+            <th></th>
+            <th></th>
+            </tr>
+            
+                {
+                    entradas.map((linha) => {
+
+                     return(
+                        <tr>
+                        <td>{linha.id}</td>
+                        <td>{linha.idproduto}</td>
+                        <td>{linha.quantidade}</td>
+                        <td>{linha.valorunit}</td>
+                        <td>{linha.data}</td>
+                        <td>
+                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarentrada(linha.id,linha.idproduto)}}/>
+                            </td>
+                        <td>
+                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirentrada(linha.id,linha.idproduto)}}/>
+                            </td>
+                        </tr>
+                     )
+                    
+                    })
+                    
+                    
+                }
+                <th>total de entradas: {quantidade}</th>
+            </table>
         </div>
-       
-           )
+        </div>
+: 
+ </div>
+
+    )
 }

@@ -8,7 +8,6 @@ export default function Cadastroproduto(){
     const navigate = useNavigate();
     const[descricao,setDescricao] = useState("")
     const[status,setStatus] = useState("")
-    const[valorunit,setValorunit] = useState("")
     const[estoqmin,setEstoqmin] = useState()
     const[estoqmax,setEstoqmax] = useState()
     // json
@@ -16,7 +15,6 @@ export default function Cadastroproduto(){
     id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
      status,
      descricao,
-     valorunit,
      estoqmin,
      estoqmax
   };
@@ -45,7 +43,6 @@ export default function Cadastroproduto(){
                   <form onSubmit={Salvardados}>
                       <input type="text" placeholder="Status" value={status} onChange={(e)=>setStatus(e.target.value)}/>
                       <input type="text" placeholder="Descrição" value={descricao} onChange={(e)=>setDescricao(e.target.value)}/>
-                      <input type="text" placeholder="Valor Unitário" value={valorunit} onChange={(e)=>setValorunit(e.target.value)}/>
                       <input type="number" placeholder="Estoque Mínimo" value={estoqmin} onChange={(e)=>setEstoqmin(e.target.value)}/>
                       <input type="number" placeholder="Estoque Máximo" value={estoqmax} onChange={(e)=>setEstoqmax(e.target.value)}/>
                       <button className="btn-salvar">salvar</button>
