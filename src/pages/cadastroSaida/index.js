@@ -12,7 +12,7 @@ export default function Cadastroentrada(){
     const[data,setData] = useState("")
     const [produtos,setProdutos] = useState([])
     // json
-  const entrada={
+  const saida={
     id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
      idproduto,
      valorunit,
@@ -21,12 +21,12 @@ export default function Cadastroentrada(){
   };
    const Salvardados =(e)=>{
     e.preventDefault();
-    const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
-    banco.push(entrada);
-    localStorage.setItem("entradas",JSON.stringify(banco));
+    const banco = JSON.parse(localStorage.getItem("saida") || "[]");
+    banco.push(saida);
+    localStorage.setItem("saida",JSON.stringify(banco));
     alert("deu certo!!!")
   
-    navigate("/listaentradas")
+    navigate("/listasaida")
       }
       useEffect(()=>{
         mostrarprodutos();
@@ -47,7 +47,7 @@ export default function Cadastroentrada(){
                   <Menu/>
                  </div>
                  <div className="main">
-                  <Head title="Cadastro de Entrada"/>
+                  <Head title="Cadastro de Saída"/>
                   <form onSubmit={Salvardados}>
                       
                       <select onChange={(e)=>setIdproduto(e.target.value)}>

@@ -8,25 +8,24 @@ import Header from "../componentes/header"
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit,FiTrash } from "react-icons/fi";
 
-export default function Listaentradas(){
+export default function Listasaida(){
     const navigate =  useNavigate();
-    
 
-    const[entradas, setEntradas] = useState([]);
+    const[saida, setSaida] = useState([]);
     const [quantidade,setquantidade]= useState();
 
-    function mostrarentrada(){
+    function mostrarsaida(){
       
-        const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
+        const banco = JSON.parse(localStorage.getItem("saida") || "[]");
         setquantidade(banco.length)
-        setEntradas (banco);
+        setSaida (banco);
     }
-    function editarentrada(id, nome){
+    function editarsaida(id, nome){
          alert(`estou editando  a entrada id:${id} |-| do nome: ${nome}`);
          navigate(`/editarentrada/${id}`)
     }
     
-       const excluirentrada = (id, nome) => {
+       const excluirsaida = (id, nome) => {
             confirmAlert({
               title: 'ban em produto',
               message: 'quer mesmo dar ban nessa entrada?',
@@ -34,11 +33,11 @@ export default function Listaentradas(){
                 {
                   label: 'sim, muito cringe, da ban',
                   onClick: () => {
-                    const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
+                    const banco = JSON.parse(localStorage.getItem("saida") || "[]");
                     const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
-                    localStorage.setItem("entradas", JSON.stringify(dadosvelhos));
-                    alert(`entrada ${nome} excluido com sucesso`);
-                    mostrarentrada();
+                    localStorage.setItem("saida", JSON.stringify(dadosvelhos));
+                    alert(`saida ${nome} excluido com sucesso`);
+                    mostrarsaida();
                     
                   }
                 },
@@ -51,7 +50,7 @@ export default function Listaentradas(){
           };
         
     
-    useEffect(()=>{mostrarentrada()},[])
+    useEffect(()=>{mostrarsaida()},[])
     return( 
 
         
@@ -64,9 +63,9 @@ export default function Listaentradas(){
              <Menu/>
             </div>
             <div className="main">
-             <Head title="Lista de Entradas" />
+             <Head title="Lista de Saídas" />
                      <div>
-                     <Link to="/cadastroentrada" className='btn-novo'>Novo</Link>
+                     <Link to="/cadastrosaida" className='btn-novo'>Novo</Link>
                      </div>
           
         
@@ -82,7 +81,7 @@ export default function Listaentradas(){
             </tr>
             
                 {
-                    entradas.map((linha) => {
+                    saida.map((linha) => {
 
                      return(
                         <tr>
@@ -92,10 +91,10 @@ export default function Listaentradas(){
                         <td>{linha.valorunit}</td>
                         <td>{linha.data}</td>
                         <td>
-                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarentrada(linha.id,linha.idproduto)}}/>
+                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarsaida(linha.id,linha.idproduto)}}/>
                             </td>
                         <td>
-                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirentrada(linha.id,linha.idproduto)}}/>
+                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirsaida(linha.id,linha.idproduto)}}/>
                             </td>
                         </tr>
                      )
@@ -104,7 +103,7 @@ export default function Listaentradas(){
                     
                     
                 }
-                <th>total de entradas: {quantidade}</th>
+                <th>Total de Saídas: {quantidade}</th>
             </table>
         </div>
         </div>
