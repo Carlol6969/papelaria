@@ -8,24 +8,25 @@ import Header from "../componentes/header"
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit,FiTrash } from "react-icons/fi";
 
-export default function Listasaida(){
+export default function Listaestoque(){
     const navigate =  useNavigate();
-
-    const[saida, setSaida] = useState([]);
-    const [quantidade,setquantidade]= useState();
-
-    function mostrarsaida(){
-      
-        const banco = JSON.parse(localStorage.getItem("saida") || "[]");
-        setquantidade(banco.length)
-        setSaida (banco);
-    }
-    function editarsaida(id, nome){
-         alert(`estou editando  a entrada id:${id} |-| do nome: ${nome}`);
-         navigate(`/editarentrada/${id}`)
-    }
     
-       const excluirsaida = (id, nome) => {
+
+    const[entradas, setEntradas] = useState([]);
+    const [quantidade,setquantidade]= useState();
+   
+    function mostrarentrada(){
+      
+        const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
+        setquantidade(banco.length)
+        setEntradas (banco);
+    }
+    // function editarentrada(id, nome){
+    //      alert(`estou editando  a entrada id:${id} |-| do nome: ${nome}`);
+    //      navigate(`/editarentrada/${id}`)
+    // }
+    
+       const excluirentrada = (id, nome) => {
             confirmAlert({
               title: 'ban em produto',
               message: 'quer mesmo dar ban nessa entrada?',
@@ -33,11 +34,11 @@ export default function Listasaida(){
                 {
                   label: 'sim, muito cringe, da ban',
                   onClick: () => {
-                    const banco = JSON.parse(localStorage.getItem("saida") || "[]");
+                    const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
                     const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
-                    localStorage.setItem("saida", JSON.stringify(dadosvelhos));
-                    alert(`saida ${nome} excluido com sucesso`);
-                    mostrarsaida();
+                    localStorage.setItem("entradas", JSON.stringify(dadosvelhos));
+                    alert(`entrada ${nome} excluido com sucesso`);
+                    mostrarentrada();
                     
                   }
                 },
@@ -50,7 +51,7 @@ export default function Listasaida(){
           };
         
     
-    useEffect(()=>{mostrarsaida()},[])
+    useEffect(()=>{mostrarentrada()},[])
     return( 
 
         
@@ -63,10 +64,10 @@ export default function Listasaida(){
              <Menu/>
             </div>
             <div className="main">
-             <Head title="Lista de Saídas" />
-                     <div>
-                     <Link to="/cadastrosaida" className='btn-novo'>Novo</Link>
-                     </div>
+             <Head title="Lista de Estoque" />
+                     {/* <div>
+                     <Link to="/cadastroentrada" className='btn-novo'>Novo</Link>
+                     </div> */}
           
         
          <table>
@@ -75,13 +76,13 @@ export default function Listasaida(){
             <th>Produto</th>
             <th>Quantidade</th>
             <th>Valor Unitário</th>
-            <th>Data de Saída</th>
+            {/* <th>Data Entrada</th> */}
             <th></th>
             <th></th>
             </tr>
             
                 {
-                    saida.map((linha) => {
+                    entradas.map((linha) => {
 
                      return(
                         <tr>
@@ -89,13 +90,14 @@ export default function Listasaida(){
                         <td>{linha.idproduto}</td>
                         <td>{linha.quantidade}</td>
                         <td>{linha.valorunit}</td>
-                        <td>{linha.data}</td>
-                        <td>
-                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarsaida(linha.id,linha.idproduto)}}/>
-                            </td>
-                        <td>
-                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirsaida(linha.id,linha.idproduto)}}/>
-                            </td>
+                        {/* <td>{linha.data}</td> */}
+                        {/* <td>
+                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarentrada(linha.id,linha.idproduto)}}/>
+                        </td> */}
+
+                        {/* <td>
+                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirentrada(linha.id,linha.idproduto)}}/>
+                            </td> */}
                         </tr>
                      )
                     
@@ -103,7 +105,7 @@ export default function Listasaida(){
                     
                     
                 }
-                <th>Total de Saídas: {quantidade}</th>
+                <th>Total de Produtos em Estoque: {quantidade}</th>
             </table>
         </div>
         </div>

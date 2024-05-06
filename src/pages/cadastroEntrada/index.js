@@ -21,13 +21,53 @@ export default function Cadastroentrada(){
   };
    const Salvardados =(e)=>{
     e.preventDefault();
+    const estoque = JSON.parse(localStorage.getItem("estoque") || "[]");
     const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
     banco.push(entrada);
     localStorage.setItem("entradas",JSON.stringify(banco));
     alert("deu certo!!!")
   
     navigate("/listaentradas")
+
+    let produtoexist = estoque.filter((linha)=>{
+      return linha.idproduto == idproduto
+    })
+
+    if (produtoexist[0].idproduto){
+      const paratualizar = estoque.filter((linha)=>{
+        return linha.idproduto != idproduto
+      })
+      const qtdeestoque = produtoexist ? produtoexist[0].quantidade : 0;
+      const idestoque = produtoexist ? produtoexist[0].id : 0;
+      const atualizarestoque ={
+        id:idestoque,
+        quantidade: qtdeestoque + entrada.quantidade,
+        valorunit: entrada.valorunit,
       }
+      paratualizar.push(atualizarestoque) 
+      localStorage.setItem("estoques", JSON.stringify(paratualizar));// pronto agora o estoque será alterado
+    
+
+
+    }
+   else{const novoestoque = {
+    id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
+    idproduto,
+    quantidade: entrada.quantidade,
+    valorunit: entrada.valorunit,
+  };
+  localStorage.setItem("estoques", JSON.stringify(novoestoque));
+}
+
+alert("Dados Salvos com Sucesso!!!!!");
+navigate("/listaentrada");
+;
+
+   } 
+        
+          }  
+   }   
+   
       useEffect(()=>{
         mostrarprodutos();
       },[])
@@ -73,4 +113,4 @@ export default function Cadastroentrada(){
         </div>
        
            )
-}
+                              }
