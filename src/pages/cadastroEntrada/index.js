@@ -25,9 +25,7 @@ export default function Cadastroentrada(){
     const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
     banco.push(entrada);
     localStorage.setItem("entradas",JSON.stringify(banco));
-    alert("deu certo!!!")
-  
-    navigate("/listaentradas")
+ 
 
     let produtoexist = estoque.filter((linha)=>{
       return linha.idproduto == idproduto
@@ -58,15 +56,14 @@ export default function Cadastroentrada(){
   };
   localStorage.setItem("estoques", JSON.stringify(novoestoque));
 }
-
 alert("Dados Salvos com Sucesso!!!!!");
 navigate("/listaentrada");
-;
+
 
    } 
         
-          }  
-   }   
+            
+
    
       useEffect(()=>{
         mostrarprodutos();
