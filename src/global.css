@@ -45,12 +45,13 @@ body{
         width: 250px;
         
     }
-    .logo{
-    display: flex;
-    justify-content: center;
+    .logoicon{
+    width: 60px !important;
+    border-radius: 50%;
+    border: solid 3px rgba(231, 150, 0, 0.557);
     
     }
-    .button-logon{
+    .button_login{
         margin-top: 10px;
         margin-bottom: 10px;
         width: 100%;
@@ -93,43 +94,39 @@ body{
         padding: 15px;
     }
     .dashboard-container{
- display: flex;
- flex-direction: column;
+    display: flex;
+    flex-direction: column;
     }
-    form{
-        filter: drop-shadow(2px  7px 2px black);
+    .home-menu{
+        display: flex;
+        flex-direction: row;
     }
-    section{
-        margin-top: 10%;
-    }
-    img{
-        border-radius: 9%;
-    }   
     .link{
         display: flex;
         width: 85%;
         border-radius: 5px;
         border: #a29d7f 1px solid;
-        color: #9c8680;
+        align-items: center;
+        border-radius: 5px;
+        color:#9c8680;
         padding: 10px;
         margin: auto;
-        margin-top: 5PX;
+        margin-top:8px;
         
-        justify-content: center;
+        
     }
-    NAV{
-        height: 90VH;
-    }
-    .link:hover{
-        background-color: #88a27f;
-        color: white;
-        cursor: pointer;
-    }
-    .icons-menu{
-        margin-right: 10px;
+    nav{
+        height: 90vh;
     }
 
-    .btn-salvar{
+    .link:hover{
+        background-color:#a29d7f ;
+        color: white;
+       }
+       .icon-menu{
+           padding-right: 20px;
+       }
+       .btn-salvar{
         margin-top: 10px;
         margin-bottom: 10px;
         width: 100%;
@@ -148,9 +145,10 @@ body{
         filter:brightness(90%);
         cursor:pointer
     }
-    .btn-novo{
+       .btn-novo{
         margin-top: 10px;
         margin-bottom: 10px;
+        margin-right: 100%;
         width: 100%;
         padding: 12px;
         background-color: green;
@@ -162,44 +160,27 @@ body{
         text-decoration:none;
         font-size: 14px;
         transition: filter 0.2s;
-        margin-right: 100%;
+        
     }
     .btn-novo:hover{
         filter:brightness(90%);
-        cursor:pointer  
+        cursor:pointer
     }
     table{
         font:400 16px 'Roboto', sans-serif; 
         margin: 0 auto;
-    
-        
+   
     }
     th, td {
         border-bottom: 1px solid #96D4D4;
         text-align: left;
         padding: 5px;
       }
-      .header{
-        height: 100px;
+      .barraprincipal{
         display: flex;
-        flex-direction: row;
-        background-color: #ffff;
-        margin: 5px;
-        border: 0.5px solid silver;
-        border-radius: 5px;}
-        .forehead{
-            padding-left: 80px;
-            width: 390px;
-            display: flex;
-            flex-direction: row;
-        }
-        .uphead{ width: 100%;
-            display: flex;
-
-        }
-        .paps{
-            margin-left: 600px;
-            padding-right: 500px;
-        }
-        .image{ width: 100px!important ;
-        height: 100px;}
+        justify-content: space-between;
+        align-items: center;
+        padding:5px;
+      }
+      
+      

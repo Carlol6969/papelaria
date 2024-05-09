@@ -1,81 +1,94 @@
 import { useEffect, useState } from "react"
 import Menu from "../componentes/menu"
-import Head from  "../componentes/head"
-import Header from "../componentes/header"
+import Head from "../componentes/head"
+import {useNavigate, useParams, Link} from "react-router-dom"
+import BarraPrincipal from "../componentes/barraPrincipal";
+
+
+
 import '../../global.css'
-import {useNavigate, Link,useParams} from "react-router-dom"
+
 export default function Editarusuario(){
-    //salvar os usuarios cadastrados
     const navigate = useNavigate();
     const {id} = useParams();
-    const[nome,setNome] = useState("")
-    const[email,setEmail] = useState("")
-    const[senha,setSenha] = useState()
-    const [usuarios,setUsuarios] = useState([]);
-    // json
-  const usuario={
-    id: id,
-     nome,
-     email,
-     senha
-  };
-  useEffect(()=>{
-   exibirdados() 
-  },[]) 
-  //pegar todos os dados dos usuarios e colocar na tela
-  const exibirdados=()=>{
-    const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
-    // const dadosnovos = banco.filter((linha) => linha.id === Number(id));
-     banco.filter(linha => {
-      return linha.id===id
-    }).map( value=>{
-      setNome(value.nome) 
-      setEmail(value.email)
-      setSenha(value.senha)
-      usuarios.push(value)
-   
+    const [nome,setNome] = useState("")
+    const [email,setEmail] = useState("")
+    const [senha,setSenha] = useState()
+    const [usuarios, setUsuarios] = useState([])
+
+
+    const usuario={
+        id:id,
+        nome,
+        email,
+        senha
+    };
+    useEffect(()=>{
+        exibirdados()
+    },[])
+
+
+
+    const exibirdados=()=>{
+        const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+        banco.filter(linha=>{ return linha.id===id}).map(value=>{
+            setNome(value.nome)
+            setEmail(value.email)
+            setSenha(value.senha)
+        })
+
+        // // serve para exibir o item entre os parenteses
+        // console.log(banco)
     }
-    )
- 
-  }
-   const Salvardados =(e)=>{
-    e.preventDefault();
-    const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
-    // const dadosvelhos = banco.filter(linha  => {linha.id!= id});
-    const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
-    // let novoArray=[...dadosvelhos,usuario];
-    // localStorage.setItem('usuarios',JSON.stringify(novoArray))
-    // alert ("Dados salvos com sucesso!")
-    dadosvelhos.push(usuario);
-    localStorage.setItem("usuarios",JSON.stringify(dadosvelhos));
- 
-    // window.location.reload();
-    alert("deu certo!!!")
-    navigate("/listausuarios")
-    
-      }
-
-
+    const salvardados=(e)=>{
+      e.preventDefault();
+     const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+     const dadosvelhos = banco.filter(linha=>{return linha.id!=id})
+     dadosvelhos.push(usuario)
+     console.log(dadosvelhos)
+     localStorage.setItem("usuarios",
+     JSON.stringify(dadosvelhos))
+    alert("Dados Salvos com Sucesso!!!!!")
+    navigate("/listausuario")
+    }
     return(
-        <div className="dashboard-container"> 
-        <div className="header">
-          <Header/>
+        <div className="dashboard-container">
+            <BarraPrincipal />
+                <div className="home-menu">
+                    <div className="menu">
+                        <Menu />
+                    </div>
+                    <div className="main">
+                        <Head title="Editar Usuário" />
+                    
+                        <form onSubmit={salvardados} >
+                    
+                           <input
+                           type="text"
+                           placeholder="Nome"
+                           value={nome}
+                           onChange={(e)=>setNome(e.target.value)}
+                    
+                           />
+                           <input
+                           type="email"
+                           placeholder="email"
+                           value={email}
+                           onChange={(e)=>setEmail(e.target.value)}
+                           />
+                           <input
+                           type="password"
+                           placeholder="senha"
+                           value={senha}
+                           onChange={(e)=>setSenha(e.target.value)}
+                           />
+                           <button className="btn-salvar">
+                            Salvar
+                           </button>
+                    
+                        </form>
+                    </div>
+                </div>
         </div>
-               <div className="uphead">
-                 <div className="menu">
-                  <Menu/>
-                 </div>
-                 <div className="main">
-                  <Head title="Editar usuario"/>
-                  <form onSubmit={Salvardados}>
-                      <input type="text" placeholder="Nome" value={nome} onChange={(e)=>setNome(e.target.value)}/>
-                      <input type="email" placeholder="E-mail" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-                      <input type="password" placeholder="senha" value={senha} onChange={(e)=>setSenha(e.target.value)}/>
-                      <button className="btn-salvar">salvar</button>
-                  </form>
-                 </div>
-               </div>
-        </div>
-       
-           )
+            )
 }

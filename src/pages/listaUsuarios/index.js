@@ -1,113 +1,108 @@
-import React,{useState, useEffect} from "react";
+import React,{useState,useEffect} from "react";
+import '../../global.css'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import '../../global.css'
-import Head from "../componentes/head"
-import Menu from "../componentes/menu"
-import Header from "../componentes/header"
+import Head from "../componentes/head";
+import Menu from "../componentes/menu";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit,FiTrash } from "react-icons/fi";
+import BarraPrincipal from "../componentes/barraPrincipal";
 
 export default function Listausuarios(){
-    const navigate =  useNavigate();
+const navigate = useNavigate();
+const [usuarios,setUsuarios] = useState([]);
+const [quantidade,setQuantidade] = useState(0);
 
-    const[usuario, setUsuarios] = useState([]);
-    const [quantidade,setquantidade]= useState();
+function mostrarusuarios(){
+    const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+    setQuantidade(banco.length)
+    setUsuarios(banco);
+}
+function editarusuario(id){
+ alert(`Estou editando usuário de id:${id}`)
+ navigate(`/editarusuario/${id}`)
+}
 
-    function mostrarusuarios(){
-      
-        const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
-        setquantidade(banco.length)
-        setUsuarios (banco);
-    }
-    function editarusuario(id, nome){
-         alert(`estou editando  o usuario id:${id} |-| do nome: ${nome}`);
-         navigate(`/editarusuario/${id}`)
-    }
-    
-       const excluirusuario = (id, nome) => {
-            confirmAlert({
-              title: 'excluir usuario',
-              message: 'seu anta deseja realmente excluir este usuario?.',
-              buttons: [
-                {
-                  label: 'sim, claro que sim, ue',
-                  onClick: () => {
-                    const banco = JSON.parse(localStorage.getItem("usuarios") || "[]");
-                    const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
-                    localStorage.setItem("usuarios", JSON.stringify(dadosvelhos));
-                    alert(`usuario ${nome} excluido com sucesso`);
-                    mostrarusuarios();
-                    // if(nome === "gean"){
-                    //   alert("opa não pode excluir meu brodi")
-                      
-                    // }
+  const  excluirusuario = (id) => {
+        confirmAlert({
+          title: 'Excluir usuário',
+          message: 'Deseja realmente excluir esse usuário?',
+          buttons: [
+            {
+              label: 'Sim',
+              onClick: () => {
+                const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+                const dadosvelhos = banco.filter(linha=>
+                  {
+                      return linha.id!=id
                   }
-                },
-                {
-                  label: 'por que quer excluir então idiota!',
-                  onClick: () => alert('Click No')
-                }
-              ]
-            });
-          };
-        
-    
-    useEffect(()=>{mostrarusuarios()},[])
-    return( 
+                  )
+                  localStorage.setItem("usuarios",JSON.stringify(dadosvelhos))
+                  mostrarusuarios();
+              }
+            },
+            {
+              label: 'Não',
+              onClick: () => alert('Ação cancelada!')
+            }
+          ]
+        });
+      };
 
-        
- <div className="dashboard-container"> 
-         <div className="header">
-          <Header/>
-         </div>
-          <div className="uphead">
-            <div className="menu">
-             <Menu/>
-            </div>
-            <div className="main">
-             <Head title="Lista de usuarios" />
-                     <div>
-                     <Link to="/cadastrousuario" className='btn-novo'>Novo</Link>
-                     </div>
+useEffect(()=>{
+    mostrarusuarios()
+},[])
+    return(
+<div className="dashboard-container">
+
+  <BarraPrincipal />
+  <div className="home-menu">
+        <div className="menu">
+            <Menu />
+        </div>
+        <div className="main">
+            <Head title="Lista de Usuários" />
+            <div>
+
+         <Link to="/cadastrousuario" className='btn-novo'>
+          Novo
           
-        
-         <table>
+          </Link>
+            </div>
+           <table>
             <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th></th>
-            <th></th>
+             <th>ID</th>
+             <th>Nome</th>
+             <th>Email</th>
+             <th></th>
+             <th></th>
             </tr>
             
                 {
-                    usuario.map((linha) => {
-
+                  usuarios.map((linha)=>{
                      return(
-                        <tr>
+                        <tr key={linha.toString()}>
                         <td>{linha.id}</td>
                         <td>{linha.nome}</td>
                         <td>{linha.email}</td>
                         <td>
-                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarusuario(linha.id,linha.nome)}}/>
-                            </td>
+                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarusuario(linha.id)}} />
+                        </td>
                         <td>
-                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirusuario(linha.id,linha.nome)}}/>
-                            </td>
+                            <FiTrash size={24} color="red" cursor="pointer" onClick={(e)=>{excluirusuario(linha.id)}}/>
+                        </td>
                         </tr>
                      )
-                    
-                    })
-                    
-                    
+                  })  
                 }
-                <th>total de usuarios: {quantidade}</th>
-            </table>
+     
+             <tr>
+              <th colSpan={5}>Total de Registros:{quantidade}</th>
+   
+             </tr>
+           </table>
         </div>
         </div>
-: 
- </div>
-
+</div>
     )
 }

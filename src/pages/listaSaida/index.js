@@ -1,114 +1,143 @@
-import React,{useState, useEffect} from "react";
+import React,{useState,useEffect} from "react";
+import '../../global.css'
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-import '../../global.css'
-import Head from "../componentes/head"
-import Menu from "../componentes/menu"
-import Header from "../componentes/header"
+import Head from "../componentes/head";
+import Menu from "../componentes/menu";
 import { Link, useNavigate } from "react-router-dom";
-import { FiEdit,FiTrash } from "react-icons/fi";
+import { FiEdit,FiSearch,FiTrash } from "react-icons/fi";
+import BarraPrincipal from "../componentes/barraPrincipal";
 
 export default function Listasaida(){
-    const navigate =  useNavigate();
+const navigate = useNavigate();
 
-    const[saida, setSaida] = useState([]);
-    const [quantidade,setquantidade]= useState();
+    const [saidas,setSaidas] = useState([])
+    const [quantidade,setQuantidade] = useState("")
 
-    function mostrarsaida(){
-      
-        const banco = JSON.parse(localStorage.getItem("saida") || "[]");
-        setquantidade(banco.length)
-        setSaida (banco);
+function mostrarsaidas(){
+    const banco = JSON.parse(localStorage.getItem("saidas")|| "[]")
+    setQuantidade(banco.length)
+    setSaidas(banco);
+
+}
+
+function mostrarproduto(id){
+  let produto = JSON.parse(localStorage.getItem("produtos")|| "[]")
+ const nome = produto.filter(linha=>{
+  return linha.id===id
+  })
+  return nome[0].descricao;
+}
+
+ const buscarproduto=(id)=>{
+    const banco = JSON.parse(localStorage.getItem("saidas")|| "[]")
+    const produto = banco.filter(linha=> linha.id === id);
+    if(produto.length ===0){
+        return "Produto não encontrado";
     }
-    function editarsaida(id, nome){
-         alert(`estou editando  a entrada id:${id} |-| do nome: ${nome}`);
-         navigate(`/editarentrada/${id}`)
-    }
-    
-       const excluirsaida = (id, nome) => {
-            confirmAlert({
-              title: 'ban em produto',
-              message: 'quer mesmo dar ban nessa entrada?',
-              buttons: [
-                {
-                  label: 'sim, muito cringe, da ban',
-                  onClick: () => {
-                    const banco = JSON.parse(localStorage.getItem("saida") || "[]");
-                    const dadosvelhos = banco.filter( (linha) => linha.id !== id ); 
-                    localStorage.setItem("saida", JSON.stringify(dadosvelhos));
-                    alert(`saida ${nome} excluido com sucesso`);
-                    mostrarsaida();
-                    
+    return produto[0].descricao;
+ }
+
+function editarsaida(id){
+ alert(`Estou editando uma saida de id:${id}`)
+ navigate(`/editarsaida/${id}`)
+}
+
+  const  excluirsaida = (id) => {
+        confirmAlert({
+          title: 'Excluir saida',
+          message: 'Deseja realmente excluir essa saida?',
+          buttons: [
+            {
+              label: 'Sim',
+              onClick: () => {
+                const banco = JSON.parse(localStorage.getItem("saidas")|| "[]")
+                const dadosvelhos = banco.filter(linha=>
+                  {
+                      return linha.id!=id
                   }
-                },
-                {
-                  label: 'nah, o cringe sou eu, produto based mgtow',
-                  onClick: () => alert('Click No')
-                }
-              ]
-            });
-          };
-        
-    
-    useEffect(()=>{mostrarsaida()},[])
-    return( 
+                  )
+                  localStorage.setItem("saidas",JSON.stringify(dadosvelhos))
+                  mostrarsaidas();
+              }
+            },
+            {
+              label: 'Não',
+              onClick: () => alert('Ação cancelada!')
+            }
+          ]
+        });
+      };
 
-        
- <div className="dashboard-container"> 
-         <div className="header">
-          <Header/>
-         </div>
-          <div className="uphead">
-            <div className="menu">
-             <Menu/>
-            </div>
-            <div className="main">
-             <Head title="Lista de Saídas" />
-                     <div>
-                     <Link to="/cadastrosaida" className='btn-novo'>Novo</Link>
-                     </div>
+      function currencyFormat(num) {
+        let REAL = new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+      });
+      return REAL.format(num)
+      }
+
+useEffect(()=>{
+    mostrarsaidas()
+},[])
+    return(
+<div className="dashboard-container">
+
+  <BarraPrincipal />
+  <div className="home-menu">
+        <div className="menu">
+            <Menu />
+        </div>
+        <div className="main">
+            <Head title="Lista de saidas" />
+            <div>
+
+         <Link to="/cadastrosaida" className='btn-novo'>
+          Novo
           
-        
-         <table>
+          </Link>
+            </div>
+           <table>
             <tr>
-            <th>ID</th>
-            <th>Produto</th>
-            <th>Quantidade</th>
-            <th>Valor Unitário</th>
-            <th>Data de Saída</th>
-            <th></th>
-            <th></th>
+             <th>ID</th>
+             <th>ID Produto</th>
+             <th>Valor Unitario</th>
+             <th>Quantidade</th>
+             <th>Total</th>
+             <th>Data da saida</th>
             </tr>
             
                 {
-                    saida.map((linha) => {
-
+                  saidas.map((linha)=>{
                      return(
-                        <tr>
+                        <tr key={linha.toString()}>
                         <td>{linha.id}</td>
-                        <td>{linha.idproduto}</td>
+                        <td>{mostrarproduto(linha.id_produto)}</td>
+                        <td>{currencyFormat(linha.valor_unitario)}</td>
                         <td>{linha.quantidade}</td>
-                        <td>{linha.valorunit}</td>
-                        <td>{linha.data}</td>
+                        <td>{currencyFormat(linha.valor_unitario * linha.quantidade)}</td>
+                        <td>{linha.data_saida}</td>
                         <td>
-                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarsaida(linha.id,linha.idproduto)}}/>
-                            </td>
+                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarsaida(linha.id)}} />
+                        </td>
                         <td>
-                            <FiTrash size={24} color="red"  cursor="pointer" onClick={(e)=>{excluirsaida(linha.id,linha.idproduto)}}/>
-                            </td>
+                            <FiTrash size={24} color="red" cursor="pointer" onClick={(e)=>{excluirsaida(linha.id)}}/>
+                        </td>
+                        <td>
+                            <FiSearch size={24} color="red" cursor="pointer" onClick={(e)=>{buscarproduto(linha.id)}}/>
+                        </td>
                         </tr>
                      )
-                    
-                    })
-                    
-                    
+                  })  
                 }
-                <th>Total de Saídas: {quantidade}</th>
-            </table>
+     
+             <tr>
+              <th colSpan={5}>Total de Registros:{quantidade}</th>
+   
+             </tr>
+           </table>
         </div>
         </div>
-: 
- </div>
-
+</div>
     )
 }
