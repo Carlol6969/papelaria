@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../../global.css'
 import logo from '../../assets/img/logo1.png'
 import {useNavigate} from 'react-router-dom'
-
+import api from "../../server/api";
 export default function Logon(){
     const [email,setEmail] = useState("")
     const [senha,setSenha] = useState()
@@ -15,7 +15,15 @@ export default function Logon(){
     if(!email || !senha){
         alert("Dados incorretos ou vazios")
     }else{
-        const usuariologado = banco.filter(linha=>{return linha.email===email && linha.senha===senha})
+        api.post("/usuario/login",{email,senha})
+        .then(resposta=>{
+            if(resposta.status==200)
+            resposta.data.usuarios
+            if(resposta.status==500)
+            alert("Houve um erro man")
+            
+        })
+        // const usuariologado = banco.filter(linha=>{return linha.email===email && linha.senha===senha})
     
         if(usuariologado.length>0){
             navigate('/dashboard')
