@@ -17,19 +17,13 @@ export default function Logon(){
     }else{
         api.post("/usuario/login",{email,senha})
         .then(resposta=>{
-            if(resposta.status==200)
-            resposta.data.usuarios
+            if(resposta.status===200)
+            console.log(resposta.data.usuarios)
+            navigate('/dashboard')
             if(resposta.status==500)
             alert("Houve um erro man")
             
-        })
-        // const usuariologado = banco.filter(linha=>{return linha.email===email && linha.senha===senha})
-    
-        if(usuariologado.length>0){
-            navigate('/dashboard')
-        }else{
-            alert("Email ou senha incorretos")
-        }
+        }); 
     }
 
 
